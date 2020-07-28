@@ -26,6 +26,7 @@ aria.Dialog = function(dialog, focusAfterClosed, focusFirst) {
     throw new Error('Dialog() requires a DOM element with ARIA role of dialog.');
   }
 
+  // 弹框关闭后要获取焦点的元素
   if (typeof focusAfterClosed === 'string') {
     this.focusAfterClosed = document.getElementById(focusAfterClosed);
   } else if (typeof focusAfterClosed === 'object') {
@@ -34,6 +35,7 @@ aria.Dialog = function(dialog, focusAfterClosed, focusFirst) {
     this.focusAfterClosed = null;
   }
 
+  // 弹框显示要获取焦点的元素
   if (typeof focusFirst === 'string') {
     this.focusFirst = document.getElementById(focusFirst);
   } else if (typeof focusFirst === 'object') {
@@ -45,6 +47,7 @@ aria.Dialog = function(dialog, focusAfterClosed, focusFirst) {
   if (this.focusFirst) {
     this.focusFirst.focus();
   } else {
+    // 否则获取第一个可获取焦点的元素
     Utils.focusFirstDescendant(this.dialogNode);
   }
 

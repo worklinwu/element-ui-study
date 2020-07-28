@@ -15,13 +15,14 @@
   .theme-picker .el-color-picker__trigger {
     vertical-align: middle;
   }
-  
+
   .theme-picker-dropdown .el-color-dropdown__link-btn {
     display: none;
   }
 </style>
 
 <script>
+  // 通过 unpkg 下载最新的样式字符串, 然后通过选择的颜色值生成系列样式, 然后替换样式的字符串, 最后覆盖原来的 style
   import Element from 'main/index.js';
   const { version } = Element;
 
@@ -40,9 +41,15 @@
         if (typeof val !== 'string') return;
         const themeCluster = this.getThemeCluster(val.replace('#', ''));
         const originalCluster = this.getThemeCluster(oldVal.replace('#', ''));
+        /**
+         * 更新样式的方法
+         * @param variable 样式类型
+         * @param id style标签的 id
+         * @returns {Function}
+         */
         const getHandler = (variable, id) => {
           return () => {
-            const originalCluster = this.getThemeCluster(ORIGINAL_THEME.replace('#', ''));
+            const originalCluster = this.getThemeCluster(ORIGINAL_THEME.replace('#', '')); // 获取系列颜色
             let newStyle = this.updateStyle(this[variable], originalCluster, themeCluster);
 
             let styleTag = document.getElementById(id);
@@ -108,6 +115,7 @@
         xhr.send();
       },
 
+      // 生成不同等级的主色和阴影色 可以参考 /packages/theme-chalk/src/common/var.scss
       getThemeCluster(theme) {
         const tintColor = (color, tint) => {
           let red = parseInt(color.slice(0, 2), 16);

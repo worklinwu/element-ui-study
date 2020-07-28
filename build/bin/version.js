@@ -1,3 +1,4 @@
+// 从 package.json 中读取当前版本好, 写入到 examples/versions.json 中去
 var fs = require('fs');
 var path = require('path');
 var version = process.env.VERSION || require('../../package.json').version;

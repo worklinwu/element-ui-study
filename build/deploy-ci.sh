@@ -11,17 +11,21 @@ if [ "$ROT_TOKEN" = "" ]; then
   exit 0
 fi
 
-# release
+# release 如果有打标签
 if [ "$TRAVIS_TAG" ]; then
   # build lib
   npm run dist
   cd temp_web
+  # 下载远程仓库
   git clone https://$ROT_TOKEN@github.com/ElementUI/lib.git && cd lib
+  # 删除掉所有除 README.md 的文件
   rm -rf `find * ! -name README.md`
+  # 复制最新的文件
   cp -rf ../../lib/** .
-  # 提交所有变化
+  # 提交所有更改
   git add -A .
   git commit -m "[build] $TRAVIS_TAG"
+  # 添加标签
   git tag $TRAVIS_TAG
   git push origin master --tags
   cd ../..
@@ -37,6 +41,7 @@ if [ "$TRAVIS_TAG" ]; then
   git push origin master --tags
   cd ../..
 
+  # 把文档项目添加到 gh-pages 分支
   # build site
   npm run deploy:build # 先执行构建
   cd temp_web
@@ -45,16 +50,21 @@ if [ "$TRAVIS_TAG" ]; then
   echo $TRAVIS_TAG
 
   SUB_FOLDER='2.13'
-  mkdir $SUB_FOLDER # 创建新的版本文件夹
+  # 创建新的版本文件夹
+  mkdir $SUB_FOLDER
+  # 删除旧文件
   rm -rf *.js *.css *.map static
   rm -rf $SUB_FOLDER/**
-  cp -rf ../../examples/element-ui/** . # 复制新的文件
+  # 复制新的文件
+  cp -rf ../../examples/element-ui/** .
   cp -rf ../../examples/element-ui/** $SUB_FOLDER/
+  # 提交到 gh-pages 分支
   git add -A .
   git commit -m "$TRAVIS_COMMIT_MSG"
   git push origin gh-pages
   cd ../..
 
+  # 结束任务
   echo "DONE, Bye~"
   exit 0
 fi

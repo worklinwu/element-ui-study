@@ -13,6 +13,7 @@ export const getThemeConfigObject = (config) => {
   }
 };
 
+// 替换 head 的 style 标签里面的内容
 export const updateDomHeadStyle = (id, styleContent) => {
   let styleTag = document.getElementById(id);
   if (!styleTag) {

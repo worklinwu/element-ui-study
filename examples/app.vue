@@ -15,6 +15,7 @@
   import esLocale from 'main/locale/lang/es';
   import frLocale from 'main/locale/lang/fr';
 
+  // 通过路由来自动选择语言类型
   const lang = location.hash.replace('#', '').split('/')[1] || 'zh-CN';
   const localize = lang => {
     switch (lang) {

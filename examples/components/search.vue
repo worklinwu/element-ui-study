@@ -168,6 +168,7 @@
     },
 
     methods: {
+      // 初始化云搜索
       initIndex() {
         const client = algoliasearch('4C63BTGP6S', '0729c3c7f4dc8db7395ad0b19c0748d2');
         this.index = client.initIndex(`element-${ this.lang ? this.langs[this.lang].index : 'zh' }`);
@@ -185,7 +186,7 @@
             cb(res.hits.map(hit => {
               let content = hit._highlightResult.content.value.replace(/\s+/g, ' ');
               const highlightStart = content.indexOf('<span class="algolia-highlight">');
-              if (highlightStart > -1) {
+              if (highlightStart > -1) { // 内容截取
                 const startEllipsis = highlightStart - 15 > 0;
                 content = (startEllipsis ? '...' : '') +
                   content.slice(Math.max(0, highlightStart - 15), content.length);
@@ -193,13 +194,13 @@
                 content = '';
               }
               return {
-                anchor: hit.anchor,
-                component: hit.component,
-                highlightedCompo: hit._highlightResult.component.value,
-                title: hit._highlightResult.title.value,
-                content
+                anchor: hit.anchor, // 链接名称(换行后的拼音)
+                component: hit.component, // 组件名
+                highlightedCompo: hit._highlightResult.component.value, // 关键字高亮
+                title: hit._highlightResult.title.value, // 标题
+                content // 截取后的内容
               };
-            }).concat({ img: true }));
+            }).concat({ img: true })); // 最后一个选项, 特殊处理, 固定在底部, 加 logo
           } else {
             this.isEmpty = true;
             cb([{ isEmpty: true }]);
@@ -207,6 +208,7 @@
         });
       },
 
+      // 跳转
       handleSelect(val) {
         if (val.img || val.isEmpty) return;
         const component = val.component || '';

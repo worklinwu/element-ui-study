@@ -1,11 +1,13 @@
 const { compileTemplate } = require('@vue/component-compiler-utils');
 const compiler = require('vue-template-compiler');
 
+// 提取 script 内容
 function stripScript(content) {
   const result = content.match(/<(script)>([\s\S]+)<\/\1>/);
   return result && result[2] ? result[2].trim() : '';
 }
 
+// 提取 style 内容
 function stripStyle(content) {
   const result = content.match(/<(style)\s*>([\s\S]+)<\/\1>/);
   return result && result[2] ? result[2].trim() : '';
@@ -27,6 +29,7 @@ function pad(source) {
     .join('\n');
 }
 
+// 转换成组件对象
 function genInlineComponentText(template, script) {
   // https://github.com/vuejs/vue-loader/blob/423b8341ab368c2117931e909e2da9af74503635/lib/loaders/templateLoader.js#L46
   const finalOptions = {
@@ -52,6 +55,10 @@ function genInlineComponentText(template, script) {
   let demoComponentContent = `
     ${compiled.code}
   `;
+  // el-radio 为例, demoComponentContent 的结果类似:
+  /* var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[[_c('el-radio',{attrs:{"label":"1"},model:{value:(_vm.radio),callback:function ($$v) {_vm.radio=$$v},expression:"radio"}},[_vm._v("Option A")]),_vm._v(" "),_c('el-radio',{attrs:{"label":"2"},model:{value:(_vm.radio),callback:function ($$v) {_vm.radio=$$v},expression:"radio"}},[_vm._v("Option B")])]],2)}
+  var staticRenderFns = []
+  */
   // todo: 这里采用了硬编码有待改进
   script = script.trim();
   if (script) {
@@ -59,6 +66,8 @@ function genInlineComponentText(template, script) {
   } else {
     script = 'const democomponentExport = {}';
   }
+  // el-radio 为例, script 的结果类似:
+  /* const democomponentExport = { data () { return { radio: '1' }; } } */
   demoComponentContent = `(function() {
     ${demoComponentContent}
     ${script}

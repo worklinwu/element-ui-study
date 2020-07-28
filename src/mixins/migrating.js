@@ -1,6 +1,7 @@
 import { kebabCase } from 'element-ui/src/utils/util';
 /**
  * Show migrating guide in browser console.
+ * 迁移指南
  *
  * Usage:
  * import Migrating from 'element-ui/src/mixins/migrating';

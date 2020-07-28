@@ -4,7 +4,7 @@
 // 添加到 components.json
 // 添加到 index.scss
 // 添加到 element-ui.d.ts
-// 创建 package
+// 添加组件的相关文件到 packages
 // 添加到 nav.config.json
 
 console.log();
@@ -24,7 +24,7 @@ const fileSave = require('file-save');
 const uppercamelcase = require('uppercamelcase');
 const componentname = process.argv[2]; // 组件名
 const chineseName = process.argv[3] || componentname; // 组件中文名 `make xxComponent 测试组件`
-const ComponentName = uppercamelcase(componentname);
+const ComponentName = uppercamelcase(componentname); // 转换命名风格
 const PackagePath = path.resolve(__dirname, '../../packages', componentname); // 组件存放目录
 const Files = [ // 组件的入口文件, 如果不符合规范, 可以之后改
   {

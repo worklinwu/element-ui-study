@@ -11,6 +11,8 @@ function broadcast(componentName, eventName, params) {
 }
 export default {
   methods: {
+    // 触发父级元素的事件
+    // 模拟 $dispatch, vue 早期有这个 API, 后来废弃了
     dispatch(componentName, eventName, params) {
       var parent = this.$parent || this.$root;
       var name = parent.$options.componentName;
@@ -26,6 +28,8 @@ export default {
         parent.$emit.apply(parent, [eventName].concat(params));
       }
     },
+    // 触发子组件的事件
+    // 模拟 $broadcast
     broadcast(componentName, eventName, params) {
       broadcast.call(this, componentName, eventName, params);
     }

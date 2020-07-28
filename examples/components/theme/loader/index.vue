@@ -18,12 +18,12 @@ import { getActionDisplayName } from '../../theme-configurator/utils/utils';
 export default {
   mixins: [Loading, DocStyle],
   mounted() {
-    this.checkLocalThemeConfig();
-    bus.$on(ACTION_APPLY_THEME, val => {
+    this.checkLocalThemeConfig(); // 检查本地配置
+    bus.$on(ACTION_APPLY_THEME, val => { // 监听样式应用事件, 执行更新样式的操作
       this.userConfig = val;
       this.onAction();
     });
-    bus.$on(ACTION_DOWNLOAD_THEME, (themeConfig, themeName) => {
+    bus.$on(ACTION_DOWNLOAD_THEME, (themeConfig, themeName) => { // 下载样式
       this.onDownload(themeConfig, themeName);
     });
   },
@@ -80,6 +80,7 @@ export default {
       }
       this.$message.error(message);
     },
+    // 触发 loading 状态样式
     triggertProgressBar(isLoading) {
       bus.$emit('user-theme-config-loading', isLoading);
     },

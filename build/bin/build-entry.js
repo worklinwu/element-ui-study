@@ -58,7 +58,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 export default {
   version: '{{version}}',
-  locale: locale.use,
+  locale: locale.use, // Vue.locale
   i18n: locale.i18n,
   install,
   CollapseTransition,

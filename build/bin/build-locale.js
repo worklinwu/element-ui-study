@@ -1,4 +1,5 @@
 // 将 /src/locale/lang 下面的文件 打包到 /lib/umd/locale 下面
+// 解决部分使用场景需求通过 CDN 的方式导入语言包
 var fs = require('fs');
 var save = require('file-save'); // 文件保存
 var resolve = require('path').resolve;

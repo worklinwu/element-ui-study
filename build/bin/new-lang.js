@@ -1,6 +1,17 @@
 'use strict';
 
 // 添加新的语言文件
+// *解决创建新的语言包过程中哪些重复的操作 *
+
+/*
+大致流程:
+
+- 添加到 components.json
+- 添加到 page.json
+- 添加到 route.json
+- 添加到 nav.config.json
+- /examples/docs 下新建对应文件夹
+ */
 
 console.log();
 process.on('exit', () => {

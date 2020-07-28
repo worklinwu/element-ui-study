@@ -1,5 +1,6 @@
 import { addClass, removeClass } from 'element-ui/src/utils/dom';
 
+// 这定义转场动画, 折叠动画
 class Transition {
   beforeEnter(el) {
     addClass(el, 'collapse-transition');

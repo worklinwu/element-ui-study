@@ -130,6 +130,7 @@ const webpackConfig = {
 };
 
 if (isProd) {
+  // 这几个文件通过 cdn 导入到页面
   webpackConfig.externals = {
     vue: 'Vue',
     'vue-router': 'VueRouter',

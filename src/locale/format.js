@@ -10,7 +10,7 @@ export default function(Vue) {
 
   /**
    * template
-   *
+   * template('可以替换占位符内容 {xxx}', {xxx: 'test'}) => '可以替换占位符内容 test'
    * @param {String} string
    * @param {Array} ...args
    * @return {String}

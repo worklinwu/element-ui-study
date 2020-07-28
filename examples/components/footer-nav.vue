@@ -22,38 +22,38 @@
     padding: 40px 0;
     color: #333;
     font-size: 14px;
-    
+
     &::after {
       content: '';
       display: block;
       clear: both;
     }
-     
+
     & i {
       transition: .3s;
       color: #999;
       vertical-align: baseline;
     }
   }
-  
+
   .footer-nav-link {
     cursor: pointer;
     transition: .3s;
-    
+
     &:hover {
       color: #409EFF;
-     
+
       & i {
         color: #409EFF;
       }
     }
   }
-  
+
   .footer-nav-left {
     float: left;
     margin-left: -4px;
   }
-  
+
   .footer-nav-right {
     float: right;
     margin-right: -4px;
@@ -69,8 +69,8 @@
         currentComponent: null,
         nav: [],
         currentIndex: -1,
-        leftNav: null,
-        rightNav: null
+        leftNav: null, // 上一个页面
+        rightNav: null // 下一个页面
       };
     },
 
@@ -90,12 +90,13 @@
     methods: {
       setNav() {
         let nav = navConfig[this.lang];
+        // 更新日志 + 开发指南 + 组件
         this.nav = [nav[0]].concat(nav[3].children);
         nav[4].groups.map(group => group.list).forEach(list => {
           this.nav = this.nav.concat(list);
         });
       },
-
+      // 计算上一个和下一个的链接是什么
       updateNav() {
         this.currentComponent = '/' + this.$route.path.split('/')[3];
         for (let i = 0, len = this.nav.length; i < len; i++) {

@@ -199,7 +199,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 export default {
   version: '2.13.2',
-  locale: locale.use,
+  locale: locale.use, // Vue.locale
   i18n: locale.i18n,
   install,
   CollapseTransition,

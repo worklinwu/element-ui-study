@@ -22,8 +22,8 @@ MenuItem.prototype.addListeners = function() {
     let prevDef = false;
     switch (event.keyCode) {
       case keys.down:
-        Utils.triggerEvent(event.currentTarget, 'mouseenter');
-        this.submenu && this.submenu.gotoSubIndex(0);
+        Utils.triggerEvent(event.currentTarget, 'mouseenter'); // 有二级菜单就展开二级菜单
+        this.submenu && this.submenu.gotoSubIndex(0); // 修改二级菜单的索引
         prevDef = true;
         break;
       case keys.up:

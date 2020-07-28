@@ -14,31 +14,31 @@ export default {
       type: Boolean,
       default: false
     },
-    openDelay: {},
+    openDelay: {}, // 延迟
     closeDelay: {},
     zIndex: {},
-    modal: {
+    modal: { // 是否显示遮罩
       type: Boolean,
       default: false
     },
-    modalFade: {
+    modalFade: { // 是否开启弹出层的动画
       type: Boolean,
       default: true
     },
     modalClass: {},
-    modalAppendToBody: {
+    modalAppendToBody: { // 是否插入到 body
       type: Boolean,
       default: false
     },
-    lockScroll: {
+    lockScroll: { // 是否锁定滚动条
       type: Boolean,
       default: true
     },
-    closeOnPressEscape: {
+    closeOnPressEscape: { // Esc 关闭
       type: Boolean,
       default: false
     },
-    closeOnClickModal: {
+    closeOnClickModal: { // 单击遮罩关闭
       type: Boolean,
       default: false
     }
@@ -46,7 +46,7 @@ export default {
 
   beforeMount() {
     this._popupId = 'popup-' + idSeed++;
-    PopupManager.register(this._popupId, this);
+    PopupManager.register(this._popupId, this); // 弹出层管理
   },
 
   beforeDestroy() {
@@ -59,7 +59,7 @@ export default {
   data() {
     return {
       opened: false,
-      bodyPaddingRight: null,
+      bodyPaddingRight: null, // 滚动条的情况
       computedBodyPaddingRight: 0,
       withoutHiddenClass: true,
       rendered: false
@@ -92,6 +92,7 @@ export default {
 
       const props = merge({}, this.$props || this, options);
 
+      // 阻止关闭的时钟, 因为可能存在延迟关闭的情况
       if (this._closeTimer) {
         clearTimeout(this._closeTimer);
         this._closeTimer = null;
@@ -111,7 +112,7 @@ export default {
 
     doOpen(props) {
       if (this.$isServer) return;
-      if (this.willOpen && !this.willOpen()) return;
+      if (this.willOpen && !this.willOpen()) return; // 将要显示弹框的事件, 如果返回 false 就取消打开
       if (this.opened) return;
 
       this._opening = true;
@@ -126,18 +127,20 @@ export default {
       }
 
       if (modal) {
+        // 如果操作很快的情况下, 可能还处于正则关闭的状态, 就先执行关闭遮罩层的操作
         if (this._closing) {
           PopupManager.closeModal(this._popupId);
           this._closing = false;
         }
         PopupManager.openModal(this._popupId, PopupManager.nextZIndex(), this.modalAppendToBody ? undefined : dom, props.modalClass, props.modalFade);
-        if (props.lockScroll) {
+        if (props.lockScroll) { // 是否锁定滚动条
           this.withoutHiddenClass = !hasClass(document.body, 'el-popup-parent--hidden');
           if (this.withoutHiddenClass) {
             this.bodyPaddingRight = document.body.style.paddingRight;
             this.computedBodyPaddingRight = parseInt(getStyle(document.body, 'paddingRight'), 10);
           }
-          scrollBarWidth = getScrollBarWidth();
+          scrollBarWidth = getScrollBarWidth(); // 获取滚动条宽度
+          // 如果弹框内容有超出一屏范围, window 机器下会显示滚动条, 这里做兼容处理
           let bodyHasOverflow = document.documentElement.clientHeight < document.body.scrollHeight;
           let bodyOverflowY = getStyle(document.body, 'overflowY');
           if (scrollBarWidth > 0 && (bodyHasOverflow || bodyOverflowY === 'scroll') && this.withoutHiddenClass) {

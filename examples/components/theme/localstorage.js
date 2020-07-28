@@ -22,6 +22,12 @@ export const savePreviewToLocal = (value) => {
 
 export const loadPreviewFromLocal = () => {
   return loadFromLocal(ELEMENT_THEME_PREVIEW_CONFIG) || {};
+  // 大概长这样子
+  // {
+  //   "type": "user",
+  //   "name": "Element-1",
+  //   "theme": "{\"global\":{\"$--color-primary\":\"#409EFF\"},\"local\":{\"$--alert-title-font-size\":\"12px\"}}"
+  // }
 };
 
 export const removePreviewFromLocal = () => {
@@ -34,5 +40,11 @@ export const saveUserThemeToLocal = (value) => {
 
 export const loadUserThemeFromLocal = () => {
   return loadFromLocal(ELEMENT_THEME_USER_CONFIG);
+  // 大概长这样子
+  // [{
+  //  "update":1595819930562,
+  //  "name":"Element-1",
+  //  "theme":"{\"global\":{\"$--color-primary\":\"#409EFF\"},\"local\":{\"$--button-small-font-size\":\"11px\"}}"
+  // }]
 };
 

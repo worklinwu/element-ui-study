@@ -97,11 +97,11 @@
       list-style: none;
       position: relative;
       cursor: pointer;
-    
+
       &.nav-algolia-search {
         cursor: default;
       }
-    
+
       &.lang-item,
       &:last-child {
         cursor: default;
@@ -195,7 +195,7 @@
       }
     }
   }
-  
+
   .nav-dropdown-list {
     width: auto;
   }
@@ -215,7 +215,7 @@
         &:last-child {
           margin-left: 10px;
         }
-         
+
         a {
           padding: 0 5px;
         }
@@ -239,11 +239,11 @@
 
         &.lang-item {
           height: 100%;
-         
+
           .nav-lang {
             display: flex;
             align-items: center;
-            
+
             span {
               padding-bottom: 0;
             }
@@ -301,7 +301,7 @@
               :to="`/${ lang }/component`">{{ langConfig.components }}
             </router-link>
           </li>
-          <li 
+          <li
             class="nav-item nav-item-theme"
           >
             <router-link
@@ -434,7 +434,7 @@
           ga('send', 'event', 'DocView', 'Ele', 'Outer');
           console.error(err);
         });
-  
+
       const testInnerImg = new Image();
       testInnerImg.onload = () => {
         this.$isEle = true;
@@ -447,6 +447,7 @@
       testInnerImg.src = `https://private-alipayobjects.alipay.com/alipay-rmsdeploy-image/rmsportal/VmvVUItLdPNqKlNGuRHi.png?t=${Date.now()}`;
     },
     methods: {
+      // 切换版本
       switchVersion(version) {
         if (version === this.version) return;
         location.href = `${ location.origin }/${ this.versions[version] }/${ location.hash } `;

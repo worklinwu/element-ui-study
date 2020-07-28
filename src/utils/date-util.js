@@ -12,6 +12,7 @@ const newArray = function(start, end) {
   return result;
 };
 
+// i18n 处理
 export const getI18nSettings = () => {
   return {
     dayNamesShort: weeks.map(week => t(`el.datepicker.weeks.${ week }`)),

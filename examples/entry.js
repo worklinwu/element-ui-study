@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import entry from './app';
 import VueRouter from 'vue-router';
-import Element from 'main/index.js';
+import Element from 'main/index.js'; // ./src/index.js
 import hljs from 'highlight.js';
 import routes from './route.config';
 import demoBlock from './components/demo-block';
@@ -12,9 +12,9 @@ import FooterNav from './components/footer-nav';
 import title from './i18n/title';
 
 import 'packages/theme-chalk/src/index.scss';
-import './demo-styles/index.scss';
-import './assets/styles/common.css';
-import './assets/styles/fonts/style.css';
+import './demo-styles/index.scss'; // 演示 demo 附加的样式
+import './assets/styles/common.scss';
+import './assets/styles/fonts/style.css'; // 图标字体
 import icon from './icon.json'; // 由 /build/bin/iconInit.js 脚本生成
 
 Vue.use(Element);
@@ -47,12 +47,13 @@ const router = new VueRouter({
 });
 
 router.afterEach(route => {
+  // 代码美化
   // https://github.com/highlightjs/highlight.js/issues/909#issuecomment-131686186
   Vue.nextTick(() => {
     const blocks = document.querySelectorAll('pre code:not(.hljs)');
     Array.prototype.forEach.call(blocks, hljs.highlightBlock);
   });
-  const data = title[route.meta.lang];
+  const data = title[route.meta.lang]; // 标题的 i18n
   for (let val in data) {
     if (new RegExp('^' + val, 'g').test(route.name)) {
       document.title = data[val];
@@ -60,7 +61,7 @@ router.afterEach(route => {
     }
   }
   document.title = 'Element';
-  ga('send', 'event', 'PageView', route.name);
+  ga('send', 'event', 'PageView', route.name); // google-analytics
 });
 
 new Vue({ // eslint-disable-line

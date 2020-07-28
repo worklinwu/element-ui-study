@@ -9,6 +9,7 @@ let seed = 0;
 
 !Vue.prototype.$isServer && on(document, 'mousedown', e => (startClick = e));
 
+// 监听 mouseup 事件, 遍历所有绑定过该指令的组件
 !Vue.prototype.$isServer && on(document, 'mouseup', e => {
   nodeList.forEach(node => node[ctx].documentHandler(e, startClick));
 });
@@ -19,13 +20,14 @@ function createDocumentHandler(el, binding, vnode) {
       !vnode.context ||
       !mouseup.target ||
       !mousedown.target ||
-      el.contains(mouseup.target) ||
-      el.contains(mousedown.target) ||
+      el.contains(mouseup.target) || // 元素内
+      el.contains(mousedown.target) || // 元素内
       el === mouseup.target ||
       (vnode.context.popperElm &&
       (vnode.context.popperElm.contains(mouseup.target) ||
       vnode.context.popperElm.contains(mousedown.target)))) return;
 
+    // 如果在范围之外就执行绑定的函数
     if (binding.expression &&
       el[ctx].methodName &&
       vnode.context[el[ctx].methodName]) {

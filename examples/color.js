@@ -1,3 +1,6 @@
+/**
+ * 颜色计算
+ */
 export const tintColor = (c, tint) => {
   const color = c.replace('#', '');
   let red = parseInt(color.slice(0, 2), 16);
