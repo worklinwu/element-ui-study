@@ -8,7 +8,15 @@ const md = require('./config');
 // 把 md 转换成 vue 组件
 module.exports = function(source) {
   const content = md.render(source);
-
+  // 得到大致的结果
+  // <h2>Test 测试</h2>
+  // <p>test组件文档</p>
+  // <demo-block>
+  //   <div>desc</div>
+  //   <template slot="highlightjs"><div>123</div></template>
+  //   <!--element-demo: <div>desc</div> :element-demo-->
+  // </demo-block>
+  // 下面的操作是要把 <!--element-demo: <div>desc</div> :element-demo--> 解析成 `<template slot="source"><element-demo0 /></template>`
   const startTag = '<!--element-demo:';
   const startTagLen = startTag.length;
   const endTag = ':element-demo-->';
